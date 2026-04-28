@@ -1,0 +1,12 @@
+{
+  "name": "myfootmarks",
+  "description": "myfootmarks Claude Code plugin",
+  "version": "0.0.1",
+  "author": {
+    "name": "Benjamin Graner",
+    "email": "graner@gmail.com"
+  },
+  "homepage": "https://github.com/escapevelocitylabs/myfootmarks",
+  "repository": "https://github.com/escapevelocitylabs/myfootmarks",
+  "keywords": ["claude-code", "skills", "plugin"]
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "myfootmarks",
+  "description": "myfootmarks plugin marketplace",
+  "owner": {
+    "name": "Benjamin Graner",
+    "email": "graner@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "myfootmarks",
+      "source": "./",
+      "description": "myfootmarks Claude Code plugin",
+      "author": {
+        "name": "Benjamin Graner",
+        "email": "graner@gmail.com"
+      },
+      "homepage": "https://github.com/escapevelocitylabs/myfootmarks",
+      "repository": "https://github.com/escapevelocitylabs/myfootmarks",
+      "keywords": ["travel", "trip-planning", "itinerary", "claude-code", "skills"]
+    }
+  ]
+}
