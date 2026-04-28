@@ -76,4 +76,4 @@ claude plugin validate .
 
 ## License
 
-Not yet licensed. Contact the author for permission to use, modify, or redistribute.
+Copyright (c) 2026 Benjamin Graner / Escape Velocity Labs. All rights reserved. See [LICENSE](LICENSE). Personal, non-commercial use is permitted; contact the author for any other use.
