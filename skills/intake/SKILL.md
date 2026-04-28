@@ -16,7 +16,7 @@ This skill is interactive — it prompts the user for input. It does NOT dispatc
 
 ## Outputs
 
-- `Trips/<slug>/trip.yaml`
+- `<slug>/trip.yaml`
 - `.myfootmarks/current-trip` (plain text containing the slug)
 - `.myfootmarks/trips/<slug>/research/` (empty directory)
 - `.myfootmarks/trips/<slug>/runs.jsonl` (empty file)
@@ -56,14 +56,14 @@ Examples:
 - `"Victoria, BC"` + `2026-05-03` → `victoria-bc-2026-05`
 - `"Kyoto, Japan"` + `2026-09-15` → `kyoto-japan-2026-09`
 
-If `Trips/<slug>/` already exists, ask the user to choose:
+If `<slug>/` already exists, ask the user to choose:
 - **Reactivate the existing trip** — set `.myfootmarks/current-trip` to this slug and stop without overwriting trip.yaml.
 - **Pick a different slug** — let the user provide a custom slug (validate it's `kebab-case`).
 - **Overwrite** — proceed and overwrite the existing trip.yaml. Confirm explicitly first.
 
-### Step 3: Write `Trips/<slug>/trip.yaml`
+### Step 3: Write `<slug>/trip.yaml`
 
-Create `Trips/<slug>/` if it doesn't exist. Write `trip.yaml` with this shape:
+Create `<slug>/` if it doesn't exist. Write `trip.yaml` with this shape:
 
 ```yaml
 destination: "<destination>"
@@ -154,10 +154,10 @@ Write the slug (just the slug, no trailing newline rules — keep simple) to `.m
 
 ### Step 6: Confirm and hint the next step
 
-Tell the user the trip is set up at `Trips/<slug>/trip.yaml` and that they can run `/myfootmarks:plan-trip` to begin the research and build pipeline.
+Tell the user the trip is set up at `<slug>/trip.yaml` and that they can run `/myfootmarks:plan-trip` to begin the research and build pipeline.
 
 ## Notes
 
 - Do NOT dispatch any subagent.
-- Do NOT touch existing files outside `Trips/<slug>/`, `.myfootmarks/trips/<slug>/`, and `.myfootmarks/current-trip`.
+- Do NOT touch existing files outside `<slug>/`, `.myfootmarks/trips/<slug>/`, and `.myfootmarks/current-trip`.
 - If the user aborts mid-prompt, do not write any files.

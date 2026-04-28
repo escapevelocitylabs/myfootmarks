@@ -9,7 +9,7 @@ Run live web research on outdoor activities at the active trip's destination —
 
 ## Inputs
 
-**Required:** `Trips/<slug>/trip.yaml` (resolved via the active-trip pointer)
+**Required:** `<slug>/trip.yaml` (resolved via the active-trip pointer)
 
 **Optional:** none
 
@@ -21,7 +21,7 @@ Run live web research on outdoor activities at the active trip's destination —
 
 ### Step 1: Resolve the active trip
 
-Read `.myfootmarks/current-trip` to get the slug. Read `Trips/<slug>/trip.yaml` and parse it. Extract `destination`, `start_date`, `end_date`, `travelers`, `regions`, `interests`.
+Read `.myfootmarks/current-trip` to get the slug. Read `<slug>/trip.yaml` and parse it. Extract `destination`, `start_date`, `end_date`, `travelers`, `regions`, `interests`.
 
 If `.myfootmarks/current-trip` is missing or `trip.yaml` is missing/malformed, stop and tell the user to run `/myfootmarks:intake` first.
 

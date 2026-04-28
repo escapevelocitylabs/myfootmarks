@@ -144,7 +144,7 @@ For each placeholder hero, the production pipeline does:
 1. Look up the place's `wikidata_id` from its research-skill frontmatter.
 2. Query Wikidata for `P18` (image) claim → filename on Commons.
 3. Fetch the Commons file's thumbnail URL (appropriate size for cover = 1800×1200, for card hero = 600×400).
-4. Download to `Trips/<slug>/assets/<place-id>.jpg`.
+4. Download to `<slug>/assets/<place-id>.jpg`.
 5. Capture the Commons metadata: author, license, source URL.
 6. Replace the placeholder gradient with `<img>` pointing at the local asset.
 7. Populate the `.feat-attrib` / `.hero-attrib` with author + license.
@@ -167,7 +167,7 @@ All real-data assets will carry per-image attribution:
 ## Asset file structure (production — not in prototype)
 
 ```
-Trips/<slug>/
+<slug>/
 ├── trip-book.html      # self-contained HTML (this template)
 └── assets/
     ├── cover-lisbon.jpg       # real Commons image

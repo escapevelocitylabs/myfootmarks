@@ -12,7 +12,7 @@ This skill bails gracefully if its trigger condition is not met.
 ## Inputs
 
 **Required:**
-- `Trips/<slug>/trip.yaml` (TRIGGER — must include at least one traveler with `age_years < 13`)
+- `<slug>/trip.yaml` (TRIGGER — must include at least one traveler with `age_years < 13`)
 
 **Optional:** none
 
@@ -24,7 +24,7 @@ This skill bails gracefully if its trigger condition is not met.
 
 ### Step 0: Trigger check
 
-Read `.myfootmarks/current-trip` → slug → `Trips/<slug>/trip.yaml`. Parse the `travelers` list and check whether any traveler has `age_years < 13`.
+Read `.myfootmarks/current-trip` → slug → `<slug>/trip.yaml`. Parse the `travelers` list and check whether any traveler has `age_years < 13`.
 
 If NO traveler is under 13:
 - Append to `runs.jsonl`:

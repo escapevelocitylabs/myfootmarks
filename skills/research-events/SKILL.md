@@ -9,7 +9,7 @@ Find events happening at the active trip's destination during the trip window. W
 
 ## Inputs
 
-**Required:** `Trips/<slug>/trip.yaml`
+**Required:** `<slug>/trip.yaml`
 
 **Optional:** none
 
@@ -21,7 +21,7 @@ Find events happening at the active trip's destination during the trip window. W
 
 ### Step 1: Resolve the active trip
 
-(Same as research-weather. Read `.myfootmarks/current-trip` → slug → `Trips/<slug>/trip.yaml`. Extract `destination`, `start_date`, `end_date`, `travelers`. Bail to `/myfootmarks:intake` if missing.)
+(Same as research-weather. Read `.myfootmarks/current-trip` → slug → `<slug>/trip.yaml`. Extract `destination`, `start_date`, `end_date`, `travelers`. Bail to `/myfootmarks:intake` if missing.)
 
 ### Step 2: Gather enrichment context
 

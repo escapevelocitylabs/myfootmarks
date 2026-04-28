@@ -9,7 +9,7 @@ Run live web research on shopping-worthy destinations at the active trip's locat
 
 ## Inputs
 
-**Required:** `Trips/<slug>/trip.yaml`
+**Required:** `<slug>/trip.yaml`
 
 **Optional:** none
 
@@ -21,7 +21,7 @@ Run live web research on shopping-worthy destinations at the active trip's locat
 
 ### Step 1: Resolve the active trip
 
-(Read `.myfootmarks/current-trip` → slug → `Trips/<slug>/trip.yaml`. Extract `destination`, `start_date`, `end_date`, `regions`, `budget_tier`. Bail to `/myfootmarks:intake` if missing.)
+(Read `.myfootmarks/current-trip` → slug → `<slug>/trip.yaml`. Extract `destination`, `start_date`, `end_date`, `regions`, `budget_tier`. Bail to `/myfootmarks:intake` if missing.)
 
 ### Step 2: Gather enrichment context
 

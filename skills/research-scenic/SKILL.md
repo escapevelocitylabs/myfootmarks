@@ -9,7 +9,7 @@ Run live web research on scenic viewpoints, scenic drives, photogenic stops, sun
 
 ## Inputs
 
-**Required:** `Trips/<slug>/trip.yaml`
+**Required:** `<slug>/trip.yaml`
 
 **Optional:** none
 
@@ -21,7 +21,7 @@ Run live web research on scenic viewpoints, scenic drives, photogenic stops, sun
 
 ### Step 1: Resolve the active trip
 
-(Same as research-outdoor. Read `.myfootmarks/current-trip` → slug → `Trips/<slug>/trip.yaml`. Extract `destination`, `regions`, `travelers`, `home_base`. Bail to `/myfootmarks:intake` if missing.)
+(Same as research-outdoor. Read `.myfootmarks/current-trip` → slug → `<slug>/trip.yaml`. Extract `destination`, `regions`, `travelers`, `home_base`. Bail to `/myfootmarks:intake` if missing.)
 
 ### Step 2: Gather enrichment context
 

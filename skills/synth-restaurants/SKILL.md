@@ -12,7 +12,7 @@ This skill does NOT dispatch a subagent. It reads local files and runs LLM-drive
 ## Inputs
 
 **Required:**
-- `Trips/<slug>/trip.yaml`
+- `<slug>/trip.yaml`
 - `.myfootmarks/trips/<slug>/research/restaurants.md` (the base)
 
 **Optional:**
@@ -28,7 +28,7 @@ This skill does NOT dispatch a subagent. It reads local files and runs LLM-drive
 
 ### Step 1: Resolve the active trip
 
-Read `.myfootmarks/current-trip` → slug → `Trips/<slug>/trip.yaml`. Bail to `/myfootmarks:intake` if missing.
+Read `.myfootmarks/current-trip` → slug → `<slug>/trip.yaml`. Bail to `/myfootmarks:intake` if missing.
 
 ### Step 2: Read base restaurants research
 

@@ -10,7 +10,7 @@ Read all available research for the active trip and produce a day-by-day itinera
 ## Inputs
 
 **Required:**
-- `Trips/<slug>/trip.yaml`
+- `<slug>/trip.yaml`
 - At least one research file (typically all five base research files; ideally also `restaurants-final.md`)
 
 **Optional (will use any present):**
@@ -23,13 +23,13 @@ Read all available research for the active trip and produce a day-by-day itinera
 
 ## Output
 
-`Trips/<slug>/itinerary.md`
+`<slug>/itinerary.md`
 
 ## Steps
 
 ### Step 1: Resolve the active trip
 
-Read `.myfootmarks/current-trip` → slug → `Trips/<slug>/trip.yaml`. Extract destination, dates, travelers (with ages and interest weights), home_base, regions, pace (default `moderate`).
+Read `.myfootmarks/current-trip` → slug → `<slug>/trip.yaml`. Extract destination, dates, travelers (with ages and interest weights), home_base, regions, pace (default `moderate`).
 
 If `trip.yaml` is missing or malformed, bail to `/myfootmarks:intake`.
 
@@ -68,7 +68,7 @@ The following reasoning steps are MANDATORY and MUST be executed in the stated o
 
 ### Step 4: Render output
 
-Write `Trips/<slug>/itinerary.md` with this structure:
+Write `<slug>/itinerary.md` with this structure:
 
 ```markdown
 # Itinerary — <destination>, <start_date> to <end_date>
@@ -105,7 +105,7 @@ Each day MUST have at a minimum: a morning activity (9:00-11:00 AM), lunch (12:0
 Append to `.myfootmarks/trips/<slug>/runs.jsonl`:
 
 ```json
-{"timestamp": "<ISO 8601>", "skill": "build-itinerary", "slug": "<slug>", "status": "ok", "consumed_inputs": [<actual list of files read>], "outputs_written": ["Trips/<slug>/itinerary.md"]}
+{"timestamp": "<ISO 8601>", "skill": "build-itinerary", "slug": "<slug>", "status": "ok", "consumed_inputs": [<actual list of files read>], "outputs_written": ["<slug>/itinerary.md"]}
 ```
 
 If you fell back to base restaurants.md (synth wasn't run), include `"reason": "synth-restaurants not run; used base restaurants.md"` in the run entry.

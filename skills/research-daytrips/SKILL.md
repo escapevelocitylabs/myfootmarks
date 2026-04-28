@@ -9,7 +9,7 @@ Run live web research on day-trip-worthy regions surrounding the active trip's d
 
 ## Inputs
 
-**Required:** `Trips/<slug>/trip.yaml`
+**Required:** `<slug>/trip.yaml`
 
 **Optional:** none
 
@@ -21,7 +21,7 @@ Run live web research on day-trip-worthy regions surrounding the active trip's d
 
 ### Step 1: Resolve the active trip
 
-(Same as other base research skills. Read `.myfootmarks/current-trip` → slug → `Trips/<slug>/trip.yaml`. Extract `destination`, `home_base`, `travelers`, `interests`. Bail to `/myfootmarks:intake` if missing.)
+(Same as other base research skills. Read `.myfootmarks/current-trip` → slug → `<slug>/trip.yaml`. Extract `destination`, `home_base`, `travelers`, `interests`. Bail to `/myfootmarks:intake` if missing.)
 
 ### Step 2: Gather enrichment context
 

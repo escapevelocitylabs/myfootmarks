@@ -9,7 +9,7 @@ Find the top tourist attractions, museums, and landmarks at the active trip's de
 
 ## Inputs
 
-**Required:** `Trips/<slug>/trip.yaml`
+**Required:** `<slug>/trip.yaml`
 
 **Optional:** `.myfootmarks/trips/<slug>/research/events.md` — if present, the subagent will consider scheduled events when prioritizing attractions.
 
@@ -21,7 +21,7 @@ Find the top tourist attractions, museums, and landmarks at the active trip's de
 
 ### Step 1: Resolve the active trip
 
-Read `.myfootmarks/current-trip` → slug → `Trips/<slug>/trip.yaml`. Extract `destination`, `regions`, `travelers` (with ages and interests). Bail to `/myfootmarks:intake` if missing.
+Read `.myfootmarks/current-trip` → slug → `<slug>/trip.yaml`. Extract `destination`, `regions`, `travelers` (with ages and interests). Bail to `/myfootmarks:intake` if missing.
 
 ### Step 2: Gather enrichment context
 

@@ -5,25 +5,25 @@ description: Render the final magazine-style trip book HTML from research + prim
 
 # Build Trip Book
 
-Produce three self-contained HTML artifacts in `Trips/<slug>/` — itinerary, checklists, and keepsake — using the user's chosen template.
+Produce three self-contained HTML artifacts in `<slug>/` — itinerary, checklists, and keepsake — using the user's chosen template.
 
 ## Inputs
 
 **Required:**
-- `Trips/<slug>/trip.yaml` (must include `template:` field; defaults to `modern-magazine` when absent)
+- `<slug>/trip.yaml` (must include `template:` field; defaults to `modern-magazine` when absent)
 - `.myfootmarks/trips/<slug>/research/destination-primer.md`
 - `.myfootmarks/trips/<slug>/research/*.md` (all 14 research outputs + `restaurants-final.md`)
-- `Trips/<slug>/itinerary.md`
-- `Trips/<slug>/packing.md`
-- `Trips/<slug>/pre-trip.md`
-- `Trips/<slug>/day-of.md`
+- `<slug>/itinerary.md`
+- `<slug>/packing.md`
+- `<slug>/pre-trip.md`
+- `<slug>/day-of.md`
 
 ## Output
 
-- `Trips/<slug>/trip-itinerary.html` — during-trip bring-along (tactical density, field cards for in-hand logistics)
-- `Trips/<slug>/trip-checklists.html` — before-trip print-and-cross-off (austere, B&W-safe, native checkboxes, one-per-page sections)
-- `Trips/<slug>/trip-book.html` — keepsake (read-ahead / hotel). **Note the semantic shift: starting in v2 this file is no longer "the whole book"; it is keepsake-only, and the itinerary + checklists have moved into the two new files above.**
-- `Trips/<slug>/assets/` — image cache from Wikidata/Commons (cross-run-persistent)
+- `<slug>/trip-itinerary.html` — during-trip bring-along (tactical density, field cards for in-hand logistics)
+- `<slug>/trip-checklists.html` — before-trip print-and-cross-off (austere, B&W-safe, native checkboxes, one-per-page sections)
+- `<slug>/trip-book.html` — keepsake (read-ahead / hotel). **Note the semantic shift: starting in v2 this file is no longer "the whole book"; it is keepsake-only, and the itinerary + checklists have moved into the two new files above.**
+- `<slug>/assets/` — image cache from Wikidata/Commons (cross-run-persistent)
 - `.myfootmarks/trips/<slug>/book-data.json` — Stage 1 output
 - `.myfootmarks/trips/<slug>/asset-manifest.json` — Stage 2 output
 - `.myfootmarks/trips/<slug>/maps/*.svg` — Stage 3 outputs (one `day-<N>.svg` per itinerary day, one `<place-id>.svg` per featured place, and one `destination.svg` editorial overview)
@@ -49,11 +49,11 @@ An explicit `--rebuild` flag is NOT implemented in v1. To force a re-run of a sp
 
 ### Step 1: Resolve the active trip and verify inputs
 
-Read `.myfootmarks/current-trip` → slug → `Trips/<slug>/trip.yaml`. Extract `destination`, `start_date`, `end_date`, `travelers`, `home_base`, `regions`, `pace`, `template` (default `modern-magazine` when absent).
+Read `.myfootmarks/current-trip` → slug → `<slug>/trip.yaml`. Extract `destination`, `start_date`, `end_date`, `travelers`, `home_base`, `regions`, `pace`, `template` (default `modern-magazine` when absent).
 
 Verify upstream artifacts exist:
 - `.myfootmarks/trips/<slug>/research/destination-primer.md`
-- `Trips/<slug>/itinerary.md`, `packing.md`, `pre-trip.md`, `day-of.md`
+- `<slug>/itinerary.md`, `packing.md`, `pre-trip.md`, `day-of.md`
 - At least one `.myfootmarks/trips/<slug>/research/*.md` file with `places:` frontmatter
 
 If anything required is missing, stop and tell the user which upstream skill needs to run first. Do not proceed.
@@ -68,10 +68,10 @@ Otherwise, dispatch a subagent with the following brief.
 
 You normalize the raw research outputs into a single structured book model. Read:
 
-- `Trips/<slug>/trip.yaml`
+- `<slug>/trip.yaml`
 - `.myfootmarks/trips/<slug>/research/destination-primer.md` frontmatter (`hero_wikidata_id`, `places:` array with `kind: destination | neighborhood`)
 - Every `.myfootmarks/trips/<slug>/research/*.md` frontmatter (14 research files + `restaurants-final.md`)
-- `Trips/<slug>/itinerary.md` (for day structure and stop IDs)
+- `<slug>/itinerary.md` (for day structure and stop IDs)
 
 Produce a single JSON file at `.myfootmarks/trips/<slug>/book-data.json` with this shape:
 
@@ -252,7 +252,7 @@ You resolve and download one representative image per entity in `book-data.json`
 
 ### Inputs to read
 
-- `Trips/<slug>/trip.yaml` — for `destination` (passed as `region` to find-place-image) and `image_overrides` (top-level key, optional).
+- `<slug>/trip.yaml` — for `destination` (passed as `region` to find-place-image) and `image_overrides` (top-level key, optional).
 - `.myfootmarks/trips/<slug>/book-data.json` — `places[]`, `dishes[]`, and `primer.hero_wikidata_id`.
 
 ### Steps
@@ -290,14 +290,14 @@ You resolve and download one representative image per entity in `book-data.json`
    - **Override-URL**: direct `curl -sS -L -o`, verify `Content-Type: image/*` afterward via `curl -sI`.
 
    ```bash
-   mkdir -p "Trips/<slug>/assets"
-   curl -sS -L -A "${UA}" -o "Trips/<slug>/assets/<entity-id>.jpg" "${image_url}"
+   mkdir -p "<slug>/assets"
+   curl -sS -L -A "${UA}" -o "<slug>/assets/<entity-id>.jpg" "${image_url}"
    sleep 0.25
    ```
 
    If `curl` returns non-zero or the output file is under 1KB → `status: "fetch-failed"`, `reason: "download-failed"`.
 
-5. **Idempotency.** Before each download, check if `Trips/<slug>/assets/<entity-id>.jpg` already exists AND `book-data.json[<entity_id>]` mtime is unchanged from the prior manifest entry's `generated_at` timestamp AND no override change has occurred for that entity. If all three are true, skip the entire find-place-image call AND the download — reuse the prior manifest entry verbatim (still print its row in the audit table).
+5. **Idempotency.** Before each download, check if `<slug>/assets/<entity-id>.jpg` already exists AND `book-data.json[<entity_id>]` mtime is unchanged from the prior manifest entry's `generated_at` timestamp AND no override change has occurred for that entity. If all three are true, skip the entire find-place-image call AND the download — reuse the prior manifest entry verbatim (still print its row in the audit table).
 
 6. **Cache `find-place-image` results.** When invoking the resolver from this stage (not from the slash command), key the cache on SHA-1 of `{name, category, region, wikidata_id?}` JSON-canonical and write to `.myfootmarks/trips/<slug>/cache/find-place-image/<hash>.json`. On a re-run with unchanged inputs, reuse the cache hit (do NOT re-invoke the resolver).
 
@@ -310,7 +310,7 @@ You resolve and download one representative image per entity in `book-data.json`
     {
       "place_id": "...",
       "status": "cached" | "no-image" | "fetch-failed",
-      "local_path": "Trips/<slug>/assets/<id>.jpg" | null,
+      "local_path": "<slug>/assets/<id>.jpg" | null,
 
       "source": "rest-summary" | "wikidata-verified" | "wikivoyage-banner" | "openverse" | "commons-file-search" | "commons-category" | "subpage-og-image" | "homepage-og-image" | "override-commons" | "override-url" | "override-skip",
       "archetype": "destination" | "landmark" | "restaurant" | "event" | "dish" | "seasonal" | "neighborhood" | null,
@@ -388,7 +388,7 @@ The base layer is OSM tile cartography fetched at build time and embedded as bas
 ### Inputs to read
 
 Runtime data:
-- `Trips/<slug>/trip.yaml` — for `destination` string used in QR URL `, {destination}` suffix
+- `<slug>/trip.yaml` — for `destination` string used in QR URL `, {destination}` suffix
 - `.myfootmarks/trips/<slug>/book-data.json` (output of Stage 1) — authoritative data model. Specifically you need:
   - `daily_plan[].timeline[]` — per-day stop sequence (name, lat, lon, place_id)
   - `daily_plan[].home_base` (or trip-level `home_base`) — anchor for route start/end
@@ -664,7 +664,7 @@ Return a short status summary to the caller:
 
 ### Step 5: Stage 4 — render-html
 
-If `Trips/<slug>/trip-itinerary.html`, `Trips/<slug>/trip-checklists.html`, AND `Trips/<slug>/trip-book.html` ALL exist AND ALL are newer than `book-data.json`, `asset-manifest.json`, every `maps/*.svg`, `itinerary.md`, `packing.md`, `pre-trip.md`, AND `day-of.md`, skip this stage. If ANY of the three output files is missing OR ANY input is newer than ANY of the three outputs, re-render all three.
+If `<slug>/trip-itinerary.html`, `<slug>/trip-checklists.html`, AND `<slug>/trip-book.html` ALL exist AND ALL are newer than `book-data.json`, `asset-manifest.json`, every `maps/*.svg`, `itinerary.md`, `packing.md`, `pre-trip.md`, AND `day-of.md`, skip this stage. If ANY of the three output files is missing OR ANY input is newer than ANY of the three outputs, re-render all three.
 
 Otherwise, dispatch a subagent with the following brief.
 
@@ -679,12 +679,12 @@ You compose three fully-independent self-contained HTML documents (itinerary / c
 ### Inputs to read
 
 Runtime data produced by earlier stages:
-- `Trips/<slug>/trip.yaml`
+- `<slug>/trip.yaml`
 - `.myfootmarks/trips/<slug>/book-data.json` (output of Stage 1 — authoritative data model)
 - `.myfootmarks/trips/<slug>/asset-manifest.json` (output of Stage 2)
 - `.myfootmarks/trips/<slug>/maps/*.svg` (outputs of Stage 3 — inline each)
-- `Trips/<slug>/itinerary.md` (for per-day narrative)
-- `Trips/<slug>/packing.md`, `pre-trip.md`, `day-of.md` (checklist content)
+- `<slug>/itinerary.md` (for per-day narrative)
+- `<slug>/packing.md`, `pre-trip.md`, `day-of.md` (checklist content)
 
 Visual contract — **the canonical source of truth** for the `modern-magazine` template. MUST be read:
 - `skills/build-trip-book/visual-specs/designs.md` — 9-section design narrative (especially Section 9: Agent Prompt Guide, the imperative rules)
@@ -699,11 +699,11 @@ Read all seven files before writing any HTML. When Visual Specifications conflic
 
 ### Output
 
-Write exactly three HTML files to `Trips/<slug>/`. Each file must be fully self-contained (own `<head>`, own inline CSS, own cover, own footer). No file in the set may reference another file in the set via `<a href>` — zero cross-file links. The reader must be able to use any one of the three docs without the other two.
+Write exactly three HTML files to `<slug>/`. Each file must be fully self-contained (own `<head>`, own inline CSS, own cover, own footer). No file in the set may reference another file in the set via `<a href>` — zero cross-file links. The reader must be able to use any one of the three docs without the other two.
 
-- `Trips/<slug>/trip-itinerary.html` — during-trip bring-along. Tactical density. Field cards for in-hand logistics.
-- `Trips/<slug>/trip-checklists.html` — before-trip print-and-cross-off. Austere. B&W-safe. Native checkboxes. One-per-page checklist sections.
-- `Trips/<slug>/trip-book.html` — keepsake. Atmospheric, editorial pacing, long-form narrative, destination hero.
+- `<slug>/trip-itinerary.html` — during-trip bring-along. Tactical density. Field cards for in-hand logistics.
+- `<slug>/trip-checklists.html` — before-trip print-and-cross-off. Austere. B&W-safe. Native checkboxes. One-per-page checklist sections.
+- `<slug>/trip-book.html` — keepsake. Atmospheric, editorial pacing, long-form narrative, destination hero.
 
 ### IA — per doc (in reading order)
 
@@ -739,7 +739,7 @@ Each doc has its own reading order. See `visual-specs/designs.md` → "Per-doc r
 
 15 imperative rules for this subagent pass. Rules marked **[v2]** are new or rewritten for the three-doc split; unmarked rules are inherited from v1 and apply uniformly across all three docs.
 
-1. **[v2] Always** emit three distinct HTML files per `plan-trip` run into `Trips/<slug>/`: `trip-itinerary.html`, `trip-checklists.html`, `trip-book.html`. Never emit a single combined document.
+1. **[v2] Always** emit three distinct HTML files per `plan-trip` run into `<slug>/`: `trip-itinerary.html`, `trip-checklists.html`, `trip-book.html`. Never emit a single combined document.
 2. **[v2] Always** make each doc fully self-contained (own `<head>`, own inline CSS, own cover). Never use `<link rel="stylesheet">` pointing across docs; no shared JS file.
 3. **[v2] Never** emit an `href` attribute targeting another doc in the set. Zero cross-file links — each doc must be usable by a reader who only has that one doc in hand. Grep the produced files before declaring done: `grep -c 'href="trip-'` must return 0 for each of the three files.
 4. **[v2] When** a place exists in both the itinerary's daily plan and the keepsake's Featured Places, emit two different content types: a **field card** (logistics: address, hours today, cost, transport hint) in the itinerary day-spread slot, and a **story card** (narrative: why the place matters, cultural framing, hero imagery) in the keepsake. Same `<slug>` on both; disjoint content. Never copy the keepsake's story card into the itinerary or vice versa.
@@ -819,14 +819,14 @@ Approximately 2500–4500 lines of HTML **across the three files combined** (not
 
 ### Final step
 
-Write all three files: `Trips/<slug>/trip-itinerary.html`, `Trips/<slug>/trip-checklists.html`, `Trips/<slug>/trip-book.html`. Return a short status summary to the caller: `"Stage 4 complete: itinerary <N1> lines, checklists <N2> lines, keepsake <N3> lines, <M KB total>."`
+Write all three files: `<slug>/trip-itinerary.html`, `<slug>/trip-checklists.html`, `<slug>/trip-book.html`. Return a short status summary to the caller: `"Stage 4 complete: itinerary <N1> lines, checklists <N2> lines, keepsake <N3> lines, <M KB total>."`
 
 ### Step 6: Log run
 
 Append to `.myfootmarks/trips/<slug>/runs.jsonl` a single line with stage-by-stage status:
 
 ```json
-{"timestamp": "<ISO-8601>", "skill": "build-trip-book", "slug": "<slug>", "status": "ok", "stages": {"normalize": "ran" | "skipped" | "error", "fetch-assets": "...", "generate-maps": "...", "render-html": "..."}, "outputs_written": ["Trips/<slug>/trip-itinerary.html", "Trips/<slug>/trip-checklists.html", "Trips/<slug>/trip-book.html"]}
+{"timestamp": "<ISO-8601>", "skill": "build-trip-book", "slug": "<slug>", "status": "ok", "stages": {"normalize": "ran" | "skipped" | "error", "fetch-assets": "...", "generate-maps": "...", "render-html": "..."}, "outputs_written": ["<slug>/trip-itinerary.html", "<slug>/trip-checklists.html", "<slug>/trip-book.html"]}
 ```
 
 On error in any stage, log `"status": "error"`, `"reason": "<short message>"`, and include the failing stage in the `stages` object. Do not proceed to downstream stages.

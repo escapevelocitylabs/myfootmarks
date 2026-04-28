@@ -12,7 +12,7 @@ This skill bails gracefully if its trigger condition is not met — it does NOT 
 ## Inputs
 
 **Required:**
-- `Trips/<slug>/trip.yaml`
+- `<slug>/trip.yaml`
 - `.myfootmarks/trips/<slug>/research/local-foods.md` (TRIGGER — must exist)
 
 **Optional:** none
@@ -38,7 +38,7 @@ If MISSING:
 
 ### Step 1: Resolve the active trip
 
-Read `.myfootmarks/current-trip` → slug → `Trips/<slug>/trip.yaml`. Extract `destination`, `regions`, `travelers`, `budget_tier`. Bail to `/myfootmarks:intake` if missing.
+Read `.myfootmarks/current-trip` → slug → `<slug>/trip.yaml`. Extract `destination`, `regions`, `travelers`, `budget_tier`. Bail to `/myfootmarks:intake` if missing.
 
 ### Step 2: Gather context
 

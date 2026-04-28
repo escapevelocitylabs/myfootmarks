@@ -12,7 +12,7 @@ This is a state machine OVER THE FILESYSTEM. The orchestrator is itself stateles
 ## Inputs
 
 - `.myfootmarks/current-trip` (the active trip slug)
-- The state of files under `Trips/<slug>/` and `.myfootmarks/trips/<slug>/`
+- The state of files under `<slug>/` and `.myfootmarks/trips/<slug>/`
 
 ## Outputs
 
@@ -35,7 +35,7 @@ If either tool is unavailable or fails:
 
 Verify `.myfootmarks/current-trip` exists and is non-empty. Read the slug.
 
-Verify `Trips/<slug>/trip.yaml` exists and parses as YAML.
+Verify `<slug>/trip.yaml` exists and parses as YAML.
 
 If either fails:
 - Tell the user to run `/myfootmarks:intake` first.
@@ -47,15 +47,15 @@ Extract from trip.yaml: `travelers` list (specifically each traveler's `age_year
 
 Determine the current pipeline phase by checking which files exist:
 
-| Files present in `.myfootmarks/trips/<slug>/research/` and `Trips/<slug>/` | Phase |
+| Files present in `.myfootmarks/trips/<slug>/research/` and `<slug>/` | Phase |
 |---|---|
 | Fewer than all 12 of: `weather.md`, `events.md`, `local-foods.md`, `attractions.md`, `restaurants.md`, `outdoor.md`, `scenic.md`, `daytrips.md`, `shopping.md`, `nightlife.md`, `music.md`, `arts.md` | `base_research` |
 | All 12 base research files present, but specializations have not been evaluated | `specializations` |
 | Specializations evaluated; `restaurants-*.md` exists but `restaurants-final.md` does not | `synth` |
-| `restaurants-final.md` exists (or no specializations ran) but `Trips/<slug>/itinerary.md` is missing | `itinerary` |
+| `restaurants-final.md` exists (or no specializations ran) but `<slug>/itinerary.md` is missing | `itinerary` |
 | `itinerary.md` exists but any of the three checklist files is missing | `checklists` |
 | All checklists exist but `.myfootmarks/trips/<slug>/research/destination-primer.md` is missing | `primer` |
-| Primer exists but `Trips/<slug>/trip-book.html` is missing | `document` |
+| Primer exists but `<slug>/trip-book.html` is missing | `document` |
 | All outputs exist | `done` |
 
 (For "specializations evaluated" — heuristic: check whether you previously logged a `skipped` entry for either specialization in `runs.jsonl` for the current trip, OR whether any specialization output file exists. If neither: still in specializations phase.)
@@ -105,14 +105,14 @@ No user pause for synth — it's a fast, non-controversial merge.
 
 #### Phase: `itinerary`
 
-If `Trips/<slug>/itinerary.md` is missing:
+If `<slug>/itinerary.md` is missing:
 - Dispatch `build-itinerary` via the Agent tool.
 
 Wait for completion. Surface any error. Pause for user review (they may want to inspect the itinerary).
 
 #### Phase: `checklists`
 
-If any of `packing.md`, `pre-trip.md`, `day-of.md` is missing in `Trips/<slug>/`:
+If any of `packing.md`, `pre-trip.md`, `day-of.md` is missing in `<slug>/`:
 - Dispatch `build-checklists` via the Agent tool.
 
 Wait. Surface any error. Pause.
@@ -128,7 +128,7 @@ Wait. Surface any error. Pause for user review — the user may want to inspect 
 
 #### Phase: `document`
 
-If any of `Trips/<slug>/trip-itinerary.html`, `Trips/<slug>/trip-checklists.html`, or `Trips/<slug>/trip-book.html` is missing:
+If any of `<slug>/trip-itinerary.html`, `<slug>/trip-checklists.html`, or `<slug>/trip-book.html` is missing:
 - Dispatch `build-trip-book` via the Agent tool. Unconditional — there is no fallback path. `build-trip-book`'s Stage 4 applies an all-or-nothing check: re-renders all three HTML outputs if any is missing or any input is newer than any output.
 
 `build-trip-book` internally orchestrates a 4-stage subagent pipeline (normalize → fetch-assets → generate-maps → render-html). Expect Wikidata/Commons/Overpass network calls during the middle stages; a first-time end-to-end render for a typical 5-day trip takes 60–180 seconds of wall-time.
@@ -139,7 +139,7 @@ Wait. Surface any error. Pause for user review.
 
 All outputs are present. Tell the user:
 
-> Trip planning complete. Three documents are ready in `Trips/<slug>/`:
+> Trip planning complete. Three documents are ready in `<slug>/`:
 >
 > - **`trip-itinerary.html`** — bring this one with you during the trip. Daily plan, per-slot field cards, during-trip quick lookups, back cover with emergency + lodging + transport info.
 > - **`trip-checklists.html`** — print this one before the trip and cross off tasks. Reservations by urgency, then pre-trip / packing / day-of lists, each on its own page. B&W-safe.

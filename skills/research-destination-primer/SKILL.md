@@ -10,7 +10,7 @@ Produce `.myfootmarks/trips/<slug>/research/destination-primer.md` — the narra
 ## Inputs
 
 **Required:**
-- `Trips/<slug>/trip.yaml` (for destination, dates, home_base, regions)
+- `<slug>/trip.yaml` (for destination, dates, home_base, regions)
 
 ## Output
 
@@ -20,7 +20,7 @@ Produce `.myfootmarks/trips/<slug>/research/destination-primer.md` — the narra
 
 ### Step 1: Resolve the active trip
 
-Read `.myfootmarks/current-trip` → slug → `Trips/<slug>/trip.yaml`. Extract `destination`, `start_date`, `end_date`, `home_base`, `regions`.
+Read `.myfootmarks/current-trip` → slug → `<slug>/trip.yaml`. Extract `destination`, `start_date`, `end_date`, `home_base`, `regions`.
 
 If `.myfootmarks/current-trip` is missing or `trip.yaml` is missing/malformed, stop and tell the user to run `/myfootmarks:intake` first.
 

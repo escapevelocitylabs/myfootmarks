@@ -11,7 +11,7 @@ This is the BASE restaurants skill. Specialized variants (`research-restaurants-
 
 ## Inputs
 
-**Required:** `Trips/<slug>/trip.yaml`
+**Required:** `<slug>/trip.yaml`
 
 **Optional:** `.myfootmarks/trips/<slug>/research/local-foods.md` — if present, recommendations bias toward restaurants serving identified signature dishes.
 
@@ -23,7 +23,7 @@ This is the BASE restaurants skill. Specialized variants (`research-restaurants-
 
 ### Step 1: Resolve the active trip
 
-Read `.myfootmarks/current-trip` → slug → `Trips/<slug>/trip.yaml`. Extract `destination`, `regions`, `travelers`, `budget_tier` (default `moderate`). Bail to `/myfootmarks:intake` if missing.
+Read `.myfootmarks/current-trip` → slug → `<slug>/trip.yaml`. Extract `destination`, `regions`, `travelers`, `budget_tier` (default `moderate`). Bail to `/myfootmarks:intake` if missing.
 
 ### Step 2: Gather enrichment context
 

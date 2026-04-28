@@ -49,7 +49,7 @@ The skills compose into a trip-planning pipeline. The typical flow is `/myfootma
 
 When a user runs the pipeline from a working directory `cwd`:
 
-- `cwd/Trips/<slug>/` — user-facing outputs (`trip.yaml`, `itinerary.md`, `packing.md`, `pre-trip.md`, `day-of.md`, `trip-itinerary.html`, `trip-checklists.html`, `trip-book.html`, `assets/<place-id>.jpg`). The three HTML documents are independent and printable standalone.
+- `cwd/<slug>/` — user-facing outputs (`trip.yaml`, `itinerary.md`, `packing.md`, `pre-trip.md`, `day-of.md`, `trip-itinerary.html`, `trip-checklists.html`, `trip-book.html`, `assets/<place-id>.jpg`). The three HTML documents are independent and printable standalone.
 - `cwd/.myfootmarks/trips/<slug>/research/` — hidden research markdown.
 - `cwd/.myfootmarks/trips/<slug>/book-data.json` — Stage 1 normalized book model.
 - `cwd/.myfootmarks/trips/<slug>/asset-manifest.json` — Stage 2 image-cache manifest.

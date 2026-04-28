@@ -9,7 +9,7 @@ Produce three checklist files in one skill invocation: `packing.md`, `pre-trip.m
 
 ## Inputs
 
-**Required:** `Trips/<slug>/trip.yaml`
+**Required:** `<slug>/trip.yaml`
 
 **Optional (will use any present):**
 - `.myfootmarks/trips/<slug>/research/weather.md`
@@ -17,15 +17,15 @@ Produce three checklist files in one skill invocation: `packing.md`, `pre-trip.m
 
 ## Outputs
 
-- `Trips/<slug>/packing.md`
-- `Trips/<slug>/pre-trip.md`
-- `Trips/<slug>/day-of.md`
+- `<slug>/packing.md`
+- `<slug>/pre-trip.md`
+- `<slug>/day-of.md`
 
 ## Steps
 
 ### Step 1: Resolve the active trip
 
-Read `.myfootmarks/current-trip` → slug → `Trips/<slug>/trip.yaml`. Extract destination, dates, travelers, home_base, regions. Bail to `/myfootmarks:intake` if missing.
+Read `.myfootmarks/current-trip` → slug → `<slug>/trip.yaml`. Extract destination, dates, travelers, home_base, regions. Bail to `/myfootmarks:intake` if missing.
 
 ### Step 2: Load enrichment
 
@@ -37,7 +37,7 @@ Read `events.md` if present — scan for events implying special attire or gear.
 
 Reason through each checklist with cross-references. Use `- [ ]` markdown checkboxes. Group items by category within each file.
 
-### Step 4: Write `Trips/<slug>/packing.md`
+### Step 4: Write `<slug>/packing.md`
 
 Structure:
 
@@ -69,7 +69,7 @@ Structure:
 - [ ] <items>
 ```
 
-### Step 5: Write `Trips/<slug>/pre-trip.md`
+### Step 5: Write `<slug>/pre-trip.md`
 
 Structure:
 
@@ -103,7 +103,7 @@ Structure:
 
 Cross-reference `packing.md` where appropriate ("packing list says bring passport — check expiry here").
 
-### Step 6: Write `Trips/<slug>/day-of.md`
+### Step 6: Write `<slug>/day-of.md`
 
 Structure:
 
@@ -133,7 +133,7 @@ Structure:
 Append one entry to `.myfootmarks/trips/<slug>/runs.jsonl`:
 
 ```json
-{"timestamp": "<ISO 8601>", "skill": "build-checklists", "slug": "<slug>", "status": "ok", "consumed_inputs": [<actual files read>], "outputs_written": ["Trips/<slug>/packing.md", "Trips/<slug>/pre-trip.md", "Trips/<slug>/day-of.md"]}
+{"timestamp": "<ISO 8601>", "skill": "build-checklists", "slug": "<slug>", "status": "ok", "consumed_inputs": [<actual files read>], "outputs_written": ["<slug>/packing.md", "<slug>/pre-trip.md", "<slug>/day-of.md"]}
 ```
 
 Confirm to the user the three paths.
