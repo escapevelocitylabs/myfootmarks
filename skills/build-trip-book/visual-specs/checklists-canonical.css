@@ -1,0 +1,362 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+
+:root {
+  --paper: #fafaf7;
+  --paper-alt: #f2f1ec;
+  --paper-deep: #ebebe8;
+  --ink: #0b0b0c;
+  --ink-soft: #2a2a2c;
+  --ink-mute: #747479;
+  --ink-faint: #a8a8a4;
+  --rule: #dcdcd8;
+  --accent: #d7362b;
+  --accent-dk: #a6261c;
+  --accent-soft: #fbe5e3;
+  --sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
+  --serif: 'Source Serif 4', 'Source Serif Pro', Charter, 'Iowan Old Style', Georgia, serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--serif);
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+
+.page-wrap { max-width: 860px; margin: 0 auto; padding: 0 32px; }
+.wide-wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+/* Cover rail */
+.cover-rail {
+  border-top: 3px solid var(--ink);
+  border-bottom: 3px solid var(--ink);
+  padding: 16px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  margin-bottom: 56px;
+}
+.cover-rail .doc-mark {
+  font-family: var(--sans);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  color: var(--accent);
+}
+.cover-rail .doc-desc {
+  font-family: var(--sans);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--ink-soft);
+}
+
+/* Masthead strip */
+.masthead {
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--sans);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+.masthead .right { color: var(--accent); }
+
+/* Eyebrow */
+.eyebrow {
+  font-family: var(--sans);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  margin: 0 0 16px;
+}
+
+/* Sub-head */
+.sub-head {
+  font-family: var(--sans);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  color: var(--ink);
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 6px;
+  margin: 32px 0 18px;
+}
+
+/* Display headings */
+h2.display {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 78px;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin: 0 0 24px;
+  color: var(--ink);
+}
+.dek {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  max-width: 56ch;
+  margin: 0 0 36px;
+}
+
+/* Section frame */
+section {
+  padding: 80px 0 60px;
+  page-break-before: always;
+}
+section:first-of-type { page-break-before: auto; }
+
+/* Footer */
+.book-footer {
+  border-top: 2px solid var(--ink);
+  padding: 32px 0;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  text-align: center;
+}
+
+/* Lens badges */
+.lens {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 3px 7px 2px;
+  border: 1px solid var(--ink);
+  background: #fff;
+  color: var(--ink);
+  margin: 0 4px 4px 0;
+}
+.lens.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.lens.hood { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+/* Page-ref chip */
+.ref, .tl-ref {
+  display: inline-block;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  background: var(--accent-soft);
+  color: var(--accent-dk);
+  padding: 2px 6px;
+}
+
+/* Print */
+@media print {
+  body { background: #fff; color: #000; }
+  :root { --accent: #000; --accent-dk: #000; --accent-soft: #eee; --paper: #fff; --paper-alt: #fff; --paper-deep: #f4f4f4; }
+  .qr-place { width: 2cm !important; height: 2cm !important; }
+  .qr-day   { width: 2.5cm !important; height: 2.5cm !important; }
+}
+
+body { background: #fff; color: var(--ink); }
+
+/* Cover (austere) */
+.cover-chk {
+  padding: 80px 0 60px;
+}
+.cover-chk .big-title {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: clamp(72px, 13vw, 140px);
+  line-height: 0.86;
+  letter-spacing: -0.045em;
+  margin: 0 0 24px;
+}
+.cover-chk .subtitle {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.4;
+  max-width: 56ch;
+  color: var(--ink-soft);
+  margin: 0 0 48px;
+}
+.urgency-summary { display: flex; flex-direction: column; gap: 24px; }
+.urgency-bucket {
+  border-top: 2px solid var(--ink);
+  padding-top: 14px;
+}
+.urgency-bucket header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: 24px;
+  margin-bottom: 10px;
+}
+.urgency-bucket h3 {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  margin: 0;
+}
+.urgency-bucket .count {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 28px;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.urgency-bucket ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.urgency-bucket li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  align-items: baseline;
+  padding: 8px 0;
+  border-top: 1px solid var(--rule);
+  font-family: var(--sans);
+}
+.urgency-bucket .task { font-size: 14px; color: var(--ink); line-height: 1.4; }
+.urgency-bucket .due {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+/* Reservations & urgency lookup */
+.lp-rgroup {
+  border-top: 3px solid var(--ink);
+  padding: 16px 0;
+}
+.lp-rgroup h3 {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 22px;
+  margin: 0 0 6px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+.lp-rgroup .gnote { font-size: 13px; color: var(--ink-mute); font-style: italic; margin: 0 0 14px; }
+.lp-rgroup .rentry {
+  display: grid;
+  grid-template-columns: 1fr 200px auto;
+  gap: 16px;
+  align-items: baseline;
+  padding: 8px 0;
+  border-top: 1px solid var(--rule);
+  font-family: var(--sans);
+  font-size: 13.5px;
+}
+.lp-rgroup .rname { font-weight: 700; color: var(--ink); }
+.lp-rgroup .rwhen { color: var(--ink-mute); font-size: 12px; }
+
+/* Checklist sections — one per page */
+.checklist-section {
+  page-break-before: always;
+  background: #fff;
+  padding: 80px 0 60px;
+}
+.chk-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  align-items: end;
+  border-bottom: 3px solid var(--ink);
+  padding-bottom: 16px;
+  margin-bottom: 32px;
+}
+.chk-num {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+h2.chk-title {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 68px;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+.chk-note {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--ink-mute);
+  font-size: 15px;
+  margin-top: 12px;
+}
+.chk-group {
+  margin-bottom: 24px;
+}
+.chk-group h4 {
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 5px;
+  margin: 24px 0 12px;
+}
+.chk-group ul { list-style: none; padding: 0; margin: 0; }
+.chk-group li {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 12px;
+  align-items: baseline;
+  padding: 6px 0;
+  border-top: 1px solid var(--rule);
+}
+.chk-group li:first-child { border-top: none; }
+.chk-group label {
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink);
+  cursor: pointer;
+}
+.chk-group input[type="checkbox"] {
+  appearance: auto;
+  -webkit-appearance: checkbox;
+  width: 16px;
+  height: 16px;
+  margin: 4px 0 0;
+  accent-color: #000;
+}
+
+@media print {
+  .checklist-section { page-break-before: always; }
+}

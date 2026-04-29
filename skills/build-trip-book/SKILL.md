@@ -694,8 +694,12 @@ Visual contract — **the canonical source of truth** for the `modern-magazine` 
 - `skills/build-trip-book/visual-specs/copy.md` — canonical copy strings, tone, and voice rules
 - `skills/build-trip-book/visual-specs/interactions.md` — print mode behavior, state rules (prototype-only states do NOT apply in the production render)
 - `skills/build-trip-book/visual-specs/assets.md` — confirms all glyphs inline, no icon files
+- `skills/build-trip-book/visual-specs/itinerary-canonical.css` — the verbatim CSS to inline into trip-itinerary.html's `<style>` block. Copy its full contents byte-for-byte; do not paraphrase, reorder, or simplify.
+- `skills/build-trip-book/visual-specs/checklists-canonical.css` — same role for trip-checklists.html.
+- `skills/build-trip-book/visual-specs/keepsake-canonical.css` — same role for trip-book.html.
+- `skills/build-trip-book/visual-specs/rendering-checklist.md` — the must-have contract every rendered HTML file must satisfy. The agent reads this AFTER writing each file and validates its own output against it (see "Self-validation" section below).
 
-Read all seven files before writing any HTML. When Visual Specifications conflict with anything in this brief, the Visual Specifications win.
+Read all eleven files before writing any HTML (the seven `.md`/`.json` specs plus the three `*-canonical.css` files plus `rendering-checklist.md`). When Visual Specifications conflict with anything in this brief, the Visual Specifications win.
 
 ### Output
 
@@ -817,9 +821,18 @@ Apply the print-specific overrides from `visual-specs/interactions.md`: body whi
 
 Approximately 2500–4500 lines of HTML **across the three files combined** (not per-file). The keepsake typically accounts for the largest share; checklists the smallest. Do not chase a line count — hit the IA and let the content determine length. No external asset references in any of the three files (images are local paths under `assets/`; SVGs are inline).
 
-### Final step
+### Final step — write, self-validate, summarize
 
-Write all three files: `<slug>/trip-itinerary.html`, `<slug>/trip-checklists.html`, `<slug>/trip-book.html`. Return a short status summary to the caller: `"Stage 4 complete: itinerary <N1> lines, checklists <N2> lines, keepsake <N3> lines, <M KB total>."`
+1. **Write** all three files: `<slug>/trip-itinerary.html`, `<slug>/trip-checklists.html`, `<slug>/trip-book.html`.
+
+2. **Self-validate** each written file against `visual-specs/rendering-checklist.md` → "Self-validation contract":
+   - **Substring / pattern guards** — use Grep to search each written file for each forbidden pattern listed in the rendering-checklist (`Invalid Date`, ISO timestamp pattern `[0-9]{4}-[0-9]{2}-[0-9]{2}T`, `>undefined<`, `[object Object]`, `>NaN`). Any match is a hard fail for that file.
+   - **Structural checks** — use Grep with `-c` (count) to verify per-doc required elements are present in the expected counts (e.g. `grep -c '<div class="tl-item"'` should equal `grep -c '<div class="field-card"'` for trip-itinerary.html). Full per-doc checks are listed in the rendering-checklist.
+   - **Read-and-compare check (itinerary only)** — use Read to load `trip-itinerary.html`, walk paired `<h2 class="day-title">` / `<p class="day-narrative">` elements, and string-compare the text content. They MUST NOT be equal. This is the one check that is not pure Grep.
+
+3. **On any check failure:** describe which check failed (with offending lines / counts), re-emit the affected file with the fix, and re-run all checks for that file. Cap at **3 self-correction passes per file**. On the 4th failed attempt, stop self-correcting and report the unresolved violations to the user; the run-log entry records `"status": "validator_failed"` with the violation list and Step 6's "ok" run-log entry is NOT written.
+
+4. **On clean validation across all three files:** return a short status summary to the caller: `"Stage 4 complete: itinerary <N1> lines, checklists <N2> lines, keepsake <N3> lines, <M KB total>; validator passed."`
 
 ### Step 6: Log run
 

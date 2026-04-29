@@ -4,6 +4,33 @@ Extracted from the v3 prototype source. Components are organized by where they a
 
 ---
 
+## Required components per doc (Stage 4 must-haves)
+
+The components below MUST appear in every Stage 4 render of the named doc. The detailed component specs continue in the sections that follow; this list is the must-have summary.
+
+**`trip-itinerary.html` — required components:**
+
+- `.field-card` — MUST appear on every named-place timeline stop. Variants from the v2 component spec (Free-entry, Event, Pre-booked, No-address) all emit one card per stop; they only change row content.
+- `.weather-strip` — MUST appear once in the time-primer section, containing one `.wx-day` card per trip day.
+- `.kpi-row` — MUST appear at the top of every `.day-spread`.
+- `.lookup-page` — MUST appear at least twice in the lookups section: once wrapping the DOW lookup (`.dow-grid`), once wrapping the weather lookup (`.weather-cols`). Each `.lookup-page` carries an `.lp-num` (e.g. `01 of 02`), `.lp-title`, and italic `.lp-hint`.
+- `.evt-row` — MUST be used to render every dated event in the time-primer's `.evt-list`.
+- `.evt-grid` — MUST appear once in the time-primer section to show recurring events Mon→Sun in a 7-column grid.
+- `.fest-card` — MUST be used to render every festival in the time-primer section.
+- `.ttk` / `.ttk-row` — MUST be used to render every "Things to know" entry in the time-primer section.
+- `.cover-rail`, `.cover-schedule`, `.cover-meta` — MUST appear on the itinerary cover (see "Three distinct per-doc covers" → Variant 1).
+- `.emergency-rail` — MUST appear three times in the back cover, one panel each for Emergency / Lodging · Home base / Transport.
+
+**`trip-checklists.html` — required components:**
+
+- `.cover-rail`, `.urgency-summary`, four `.urgency-bucket` blocks — MUST appear on the cover (see "Three distinct per-doc covers" → Variant 2).
+
+**`trip-book.html` (keepsake) — required components:**
+
+- `.cover-rail`, `.cover-hero` (with hard-offset accent shadow), big-title, italic-serif subtitle, `.cover-meta`, `.attribution` — MUST appear on the keepsake cover (see "Three distinct per-doc covers" → Variant 3).
+
+See `rendering-checklist.md` (sibling file) for the full Stage 4 contract, including the self-validation checks the agent runs after writing each HTML file.
+
 ## Fixed controls (persistent UI)
 
 ### top-nav

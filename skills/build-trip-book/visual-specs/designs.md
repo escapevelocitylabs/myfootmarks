@@ -1,5 +1,7 @@
 # Design System Narrative — v3 locked
 
+> **Concrete CSS:** The concrete v3 expression of this design lives in `itinerary-canonical.css`, `checklists-canonical.css`, and `keepsake-canonical.css` (sibling files in this directory). Stage 4 emits those files verbatim into the corresponding HTML `<style>` blocks. When the design narrative below diverges from the canonical CSS, the canonical CSS wins for what actually ships; update the canonical CSS together with any design change.
+
 Google Stitch 9-section format. Modern-magazine voice. Locked from prototype v3 on 2026-04-23.
 
 ## 1. Overall design language

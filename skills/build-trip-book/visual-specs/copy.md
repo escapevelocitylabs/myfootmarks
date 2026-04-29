@@ -1,5 +1,7 @@
 # Copy Catalog — v3 locked
 
+> **See also:** `itinerary-canonical.css`, `checklists-canonical.css`, `keepsake-canonical.css` for the concrete CSS each doc inlines. `rendering-checklist.md` for Stage 4's must-haves.
+
 Extracted from the v3 prototype source. Copy is grouped by section and categorized by semantic role.
 
 ## Meta

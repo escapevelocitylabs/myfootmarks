@@ -1,5 +1,7 @@
 # Design Tokens — Modern-magazine voice · v3 locked
 
+> **Maintenance note:** Token color/font values are also embedded inline as CSS custom properties in `itinerary-canonical.css`, `checklists-canonical.css`, and `keepsake-canonical.css` (sibling files in this directory). When you change a value here, also update those three CSS files to match. There is no automated drift check — this is a maintainer convention.
+
 Extracted from the v3 prototype source at 2026-04-23. See `tokens.json` for the canonical DTCG format.
 
 ## Color
